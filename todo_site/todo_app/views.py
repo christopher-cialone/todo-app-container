@@ -48,8 +48,12 @@ class TaskDetailView(View):
         '''when user clicks Update save our changes to the db and bring us back home'''
     def post(self, request, task_id):
         task = Task.objects.get(id=task_id)
-        task_form = TaskForm(request.POST, instance=task)
-        task_form.save()
+        '''This is the logic behind clicking either Update or Delete'''
+        if 'update' in request.POST:
+            task_form = TaskForm(request.POST, instance=task)
+            task_form.save()
+        elif 'delete' in request.POST:
+            task.delete()
 
         return redirect('home')
 
