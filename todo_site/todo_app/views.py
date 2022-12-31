@@ -24,7 +24,6 @@ class HomeView(View):
     
     
     def post(self, request):
-       
         task_form = TaskForm(request.POST)
         task_form.save()
         #tasks = Task.objects.all()
@@ -46,5 +45,12 @@ class TaskDetailView(View):
             template_name='detail.html',
             context=html_data,
         )
+        '''when user clicks Update save our changes to the db and bring us back home'''
+    def post(self, request, task_id):
+        task = Task.objects.get(id=task_id)
+        task_form = TaskForm(request.POST, instance=task)
+        task_form.save()
+
+        return redirect('home')
 
      
