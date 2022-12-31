@@ -1,11 +1,9 @@
 <h3>Tasks</h3>
 
-<form method="POST" action="{% url 'home' %}">
+<form method="POST">
     {% csrf_token %}
     {{ form }}
     <input type="submit" name="create" value="Create" />
-
-
 </form>
 
 <ul>

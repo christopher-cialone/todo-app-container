@@ -35,9 +35,11 @@ class TaskDetailView(View):
     def get(self, request, task_id):
         task = Task.objects.get(id=task_id)
 
+        task_form  =TaskForm(instance=task)
+
         html_data = {
             'task_object': task,
-           # 'form': task_form,
+            'form': task_form,
         }
         return render(
             request=request,
