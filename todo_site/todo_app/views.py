@@ -31,12 +31,18 @@ class HomeView(View):
         return redirect('home')
 
 
-       # html_data = {
-       #     'task_list': tasks,
-       #     'form': task_form,
-       # }
-       # return render(
-       #     request=request,
-       #     template_name='index.html',
-       #     context=html_data,
-       # )
+class TaskDetailView(View):
+    def get(self, request, task_id):
+        task = Task.objects.get(id=task_id)
+
+        html_data = {
+            'task_object': task,
+           # 'form': task_form,
+        }
+        return render(
+            request=request,
+            template_name='detail.html',
+            context=html_data,
+        )
+
+     
