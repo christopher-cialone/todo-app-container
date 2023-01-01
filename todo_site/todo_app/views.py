@@ -3,7 +3,7 @@ from django.shortcuts import redirect, render
 from django.views import View
 
 from todo_app.forms import TaskForm
-from todo_app.models import Task
+from todo_app.models import Task, Comment
 
 
 # Create your views here.
@@ -48,12 +48,14 @@ class TaskDetailView(View):
     def get(self, request, task_id):
         '''The content required to render the Task object's detail page'''
         task = Task.objects.get(id=task_id)
-
         task_form = TaskForm(instance=task)
+
+        comments = Comment.objects.filter(task=task)
 
         html_data = {
             'task_object': task,
             'form': task_form,
+            'comment_list': comments,
         }
         return render(
             request=request,
