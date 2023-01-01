@@ -2,7 +2,7 @@ from django.shortcuts import redirect, render
 
 from django.views import View
 
-from todo_app.forms import TaskForm
+from todo_app.forms import TaskForm, CommentForm
 from todo_app.models import Task, Comment
 
 
@@ -51,11 +51,13 @@ class TaskDetailView(View):
         task_form = TaskForm(instance=task)
 
         comments = Comment.objects.filter(task=task)
+        comment_form = CommentForm(task_object=task)
 
         html_data = {
             'task_object': task,
             'form': task_form,
             'comment_list': comments,
+            'comment_form': comment_form,
         }
         return render(
             request=request,
