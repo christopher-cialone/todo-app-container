@@ -5,13 +5,15 @@ from django.db import models
 
 class Tag(models.Model):
     name = models.CharField(max_length=30, unique=True)
+    ''' Connects to the Task model --> to connect our tables together '''
+
 
 
 class Task(models.Model):
     ''' A task object wil have a description of the task to complete '''
     description = models.CharField(max_length=255)
     tags = models.ManyToManyField(Tag)
-    '''The ManyToManyField: This connects our two tables'''
+    ''' The ManyToManyField: This connects our two tables '''
 
 
 class Comment(models.Model):
