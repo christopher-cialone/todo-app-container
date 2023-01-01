@@ -65,16 +65,24 @@ class TaskDetailView(View):
             context=html_data,
         )
 
-        '''when user clicks Update save our changes to the db and bring us back home'''
+    
     def post(self, request, task_id):
+        '''This method either updates or deletes existing Task objects
+           Depending on whether the user choice before redirecting the `get` method
+        '''
         task = Task.objects.get(id=task_id)
 
-        '''This is the logic behind clicking either Update or Delete'''
+        
         if 'update' in request.POST:
             task_form = TaskForm(request.POST, instance=task)
             task_form.save()
         elif 'delete' in request.POST:
             task.delete()
+        elif 'add' in request.POST:
+            comment_form = CommentForm(request.POST, task_object=task)
+            comment_form.save()
+
+            return redirect('task_detail', task.id)
 
         return redirect('home')
 
