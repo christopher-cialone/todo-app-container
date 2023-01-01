@@ -6,6 +6,7 @@ from django.db import models
 class Tag(models.Model):
     name = models.CharField(max_length=30, unique=True)
     ''' Connects to the Task model --> to connect our tables together '''
+    # task_set is auto-created
 
 
 
