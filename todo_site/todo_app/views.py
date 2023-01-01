@@ -1,4 +1,5 @@
 from django.shortcuts import redirect, render
+
 from django.views import View
 
 from todo_app.forms import TaskForm
@@ -8,7 +9,12 @@ from todo_app.models import Task
 # Create your views here.
 
 class HomeView(View):
+    '''
+    HomeView function as the site's homepage, listing out all Task objects in the database and linking out 
+    to each one's detail view
+    '''
     def get(self, request):
+        '''The content required to render the homepage'''
         task_form = TaskForm()
         tasks = Task.objects.all()
 
@@ -24,6 +30,10 @@ class HomeView(View):
     
     
     def post(self, request):
+        '''
+        This method saves new Tasks to the databse before redirecting to 
+        the 'get' method of the homepage
+        '''
         task_form = TaskForm(request.POST)
         task_form.save()
         #tasks = Task.objects.all()
@@ -31,7 +41,12 @@ class HomeView(View):
 
 
 class TaskDetailView(View):
+    '''
+    TaskDetailView provides the ability to update and delete individual
+    Task objects from the database
+    '''
     def get(self, request, task_id):
+        '''The content required to render the Task object's detail page'''
         task = Task.objects.get(id=task_id)
 
         task_form = TaskForm(instance=task)
