@@ -3,9 +3,15 @@ from django.db import models
 # Create your models here.
 # This is what creates the structure of our DB
 
+class Tag(models.Model):
+    name = models.CharField(max_length=30, unique=True)
+
+
 class Task(models.Model):
     ''' A task object wil have a description of the task to complete '''
     description = models.CharField(max_length=255)
+    tags = models.ManyToManyField(Tag)
+    '''The ManyToManyField: This connects our two tables'''
 
 
 class Comment(models.Model):
